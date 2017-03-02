@@ -51,6 +51,28 @@ public class HomeController {
 	return restTemplate.getForObject("http://" + serverName + "/server", String.class);
     }
 
+    @RequestMapping(value = "/home2")
+    public String home2(){
+	RestTemplate restTemplate = new RestTemplate();
+	restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
+	restTemplate.getMessageConverters().add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
+
+	restTemplate.setErrorHandler(new ResponseErrorHandler() {
+	    @Override
+	    public boolean hasError(ClientHttpResponse response) throws IOException {
+		return (response.getStatusCode().is4xxClientError() || response.getStatusCode().is5xxServerError());
+	    }
+
+	    @Override
+	    public void handleError(ClientHttpResponse response) throws IOException {
+		String result = new BufferedReader(new InputStreamReader(response.getBody())).lines().parallel()
+				.collect(Collectors.joining("\n"));
+		throw new RestClientException(result);
+	    }
+	});
+	return restTemplate.getForObject("http://" + serverName + ":8010/server", String.class);
+    }
+
     @RequestMapping(value = "/test")
     public String test(){
 	RestTemplate restTemplate = new RestTemplate();

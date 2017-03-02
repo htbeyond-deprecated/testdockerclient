@@ -48,7 +48,7 @@ public class HomeController {
 		throw new RestClientException(result);
 	    }
 	});
-	return restTemplate.getForObject(serverName, String.class);
+	return restTemplate.getForObject("http://" + serverName, String.class);
     }
 
     @RequestMapping(value = "/test")

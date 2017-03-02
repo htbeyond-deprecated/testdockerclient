@@ -1,0 +1,6 @@
+target.file=testdockerclient/target/test-docker-client-0.0.1-SNAPSHOT.war
+container.name=testdockerclient
+container.tag=0.1
+user=htbeyond
+password=HTbeyond4646!
+email=suktheman@htbeyond.com

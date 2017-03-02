@@ -48,7 +48,7 @@ public class HomeController {
 		throw new RestClientException(result);
 	    }
 	});
-	return restTemplate.getForObject("http://" + serverName, String.class);
+	return restTemplate.getForObject("http://" + serverName + "/server", String.class);
     }
 
     @RequestMapping(value = "/test")
@@ -70,6 +70,6 @@ public class HomeController {
 		throw new RestClientException(result);
 	    }
 	});
-	return restTemplate.getForObject("http://localhost:8010", String.class);
+	return restTemplate.getForObject("http://localhost:8010/server", String.class);
     }
 }
